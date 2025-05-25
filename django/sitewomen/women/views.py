@@ -1,5 +1,7 @@
-from django.http import HttpResponse, HttpResponseNotFound, Http404
-from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseNotFound, Http404, HttpResponseRedirect
+from django.shortcuts import render, redirect
+from django.urls import reverse
+
 
 def index(request):
      return HttpResponse('Women application page')
@@ -12,9 +14,14 @@ def cats_by_slugs(request, cat_slug):
           print(request.GET)
      return HttpResponse(f'<h1>Articles by categories</h1> <p>cat_slug: {cat_slug}</p>')
 
+
+
+
+
 def archive(request, year):
      if year>2025:
-          raise Http404
+          url =reverse('cats', args=('music',))
+          return HttpResponseRedirect(url)
      return HttpResponse(f'<h1>Archives by year</h1> <p>year: {year}</p>')
 
 def page_not_found(request, exception):
