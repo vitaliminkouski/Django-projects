@@ -2,11 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ title }}</title>
+    <title>{{ title|default:'not defined' }}</title>
 </head>
 <body>
-    <p> {{ menu }}</p>
-    <p>{{ dict.1 }}</p>
-    <h1>{{ title }}</h1>
+    <h1>{{title}}</h1>
 </body>
 </html>

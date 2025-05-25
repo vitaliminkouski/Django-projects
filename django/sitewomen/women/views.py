@@ -2,19 +2,26 @@ from django.http import HttpResponse, HttpResponseNotFound, Http404, HttpRespons
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.template.defaultfilters import join
 
 menu = ['About', 'Add page', 'Get feedback']
-dict = {1: 'one', 2: 'two', 3: 'three'}
+data_db=[
+    {'id': 1, 'title': 'Andjelina Djoli', 'content': 'Andjelina Djoli biography', 'is_published': True},
+    {'id': 2, 'title': 'Margo Robbie', 'content': 'Margo Robbie biography', 'is_published': False},
+    {'id': 3, 'title': 'Julia Roberts', 'content': 'Julia Roberts biography', 'is_published': False},
+]
 
 
 def index(request):
-    return render(request, 'women/index.html', {'title': 'Main page'})
+    data={'title': 'Main page',
+          'menu': join(menu, ' | '),
+          'posts': data_db,
+          }
+    return render(request, 'women/index.html', data)
 
 
 def about(request):
-    data = {'title': 'About web-site',
-            'menu': menu,
-            'dict': dict}
+    data = {'title': 'About web-site'}
     return render(request, 'women/about.html', data)
 
 
