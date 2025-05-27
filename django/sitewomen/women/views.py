@@ -27,7 +27,7 @@ def index(request):
 
 
 def about(request):
-    data = {'title': 'About web-site'}
+    data = {'title': 'About web-site', 'menu': menu}
     return render(request, 'women/about.html', data)
 
 
