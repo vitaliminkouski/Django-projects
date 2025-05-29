@@ -1,4 +1,6 @@
 {% load static %}
+{%load women_tags%}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,13 +31,14 @@
 <tr>
 <!-- Sidebar in the left -->
 	<td valign="top" class="left-chapters">
-	<ul id="leftchapters">
+		<ul id="leftchapters">
+		{% if selected == 0 or car_selected is None %}
 		<li class="selected">All categories</li>
-		<li><a href="#">Actresses</a></li>
-		<li><a href="#">Singers</a></li>
-		<li><a href="#">Sportswomen</a></li>
+        {%else%}
+        <li><a href="{% url 'home' %}">All categories</a></li>
+        {%endif%}
+		{% show_categories cat_selected %}
 
-		</li>
 	</ul>
 </td>
 <!-- End of Sidebar -->

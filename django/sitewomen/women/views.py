@@ -10,7 +10,13 @@ data_db=[
     Jolie is also recognized for her advocacy for refugees and displaced people. She has six children and was previously married to actor Brad Pitt, with their divorce finalized in 2024. Jolie remains a prominent figure in both Hollywood and global humanitarian efforts.''',
      'is_published': True},
     {'id': 2, 'title': 'Margo Robbie', 'content': 'Margo Robbie biography', 'is_published': False},
-    {'id': 3, 'title': 'Julia Roberts', 'content': 'Julia Roberts biography', 'is_published': True},
+    {'id': 3, 'title': 'J/home/vitali/PycharmProjects/Django-projects/djangoulia Roberts', 'content': 'Julia Roberts biography', 'is_published': True},
+]
+
+cats_db=[
+    {'id': 1, 'name': 'Actresses'},
+    {'id': 2, 'name': 'Singers'},
+    {'id': 3, 'name': 'Sportswomen'},
 ]
 
 menu=[
@@ -25,6 +31,7 @@ def index(request):
     data={'title': 'Main page',
           'menu': menu,
           'posts': data_db,
+          'cat_selected': 0,
           }
     return render(request, 'women/index.html', data)
 
@@ -50,3 +57,12 @@ def show_post(request, post_id):
 
 def page_not_found(request, exception):
     return HttpResponseNotFound('<h1>Page not found</h1>')
+
+
+def show_category(request, cat_id):
+    data = {'title': 'Display by category',
+            'menu': menu,
+            'posts': data_db,
+            'cat_selected': cat_id,
+            }
+    return render(request, 'women/index.html', context=data)
