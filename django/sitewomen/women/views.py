@@ -5,7 +5,10 @@ from django.urls import reverse
 from django.template.defaultfilters import join
 
 data_db=[
-    {'id': 1, 'title': 'Andjelina Djoli', 'content': 'Andjelina Djoli biography', 'is_published': True},
+    {'id': 1, 'title': 'Angelina Jolie', 'content': '''<h1>Angelina Jolie biography</h1>
+    Angelina Jolie, born on June 4, 1975, in Los Angeles, is an American actress, filmmaker, and humanitarian. She rose to fame with her Oscar-winning performance in Girl, Interrupted (1999) and became widely known for roles in Lara Croft: Tomb Raider, Mr. & Mrs. Smith, and Maleficent. Beyond acting, she has been deeply involved in humanitarian work, serving as a UNHCR Goodwill Ambassador and later as a Special Envoy, completing over 60 field missions. 
+    Jolie is also recognized for her advocacy for refugees and displaced people. She has six children and was previously married to actor Brad Pitt, with their divorce finalized in 2024. Jolie remains a prominent figure in both Hollywood and global humanitarian efforts.''',
+     'is_published': True},
     {'id': 2, 'title': 'Margo Robbie', 'content': 'Margo Robbie biography', 'is_published': False},
     {'id': 3, 'title': 'Julia Roberts', 'content': 'Julia Roberts biography', 'is_published': True},
 ]
