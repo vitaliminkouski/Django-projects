@@ -4,9 +4,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.template.defaultfilters import join
 
-from .models import Women, Category
-
-
+from .models import Women, Category, TagPost
 
 menu=[
     {'title': 'Contacts', 'url_name': 'contacts'},
@@ -65,5 +63,16 @@ def show_category(request, cat_slug):
             'menu': menu,
             'posts': posts,
             'cat_selected': category.pk,
+            }
+    return render(request, 'women/index.html', context=data)
+
+def show_tag_postlist(request, tag_slug):
+    tag=get_object_or_404(TagPost, slug=tag_slug)
+    posts=tag.tags.filter(is_published=Women.Status.PUBLISHED)
+
+    data = {'title': f'Tag: {tag.tag}',
+            'menu': menu,
+            'posts': posts,
+            'cat_selected': None,
             }
     return render(request, 'women/index.html', context=data)

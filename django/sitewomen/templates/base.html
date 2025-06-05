@@ -32,13 +32,13 @@
 <!-- Sidebar in the left -->
 	<td valign="top" class="left-chapters">
 		<ul id="leftchapters">
-		{% if selected == 0 or car_selected is None %}
+		{% if selected == 0 %}
 		<li class="selected">All categories</li>
         {%else%}
         <li><a href="{% url 'home' %}">All categories</a></li>
         {%endif%}
 		{% show_categories cat_selected %}
-
+		<li>{% show_all_tags %}</li>
 	</ul>
 </td>
 <!-- End of Sidebar -->
