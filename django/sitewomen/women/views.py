@@ -1,8 +1,10 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.template.defaultfilters import join
+
+from .models import Women
 
 data_db=[
     {'id': 1, 'title': 'Angelina Jolie', 'content': '''<h1>Angelina Jolie biography</h1>
@@ -28,9 +30,10 @@ menu=[
 
 
 def index(request):
+    posts=Women.published.all()
     data={'title': 'Main page',
           'menu': menu,
-          'posts': data_db,
+          'posts': posts ,
           'cat_selected': 0,
           }
     return render(request, 'women/index.html', data)
@@ -52,8 +55,16 @@ def login(request):
 
 
 
-def show_post(request, post_id):
-    return HttpResponse(f'<h1>post id: {post_id}</h1>')
+def show_post(request, post_slug):
+    post=get_object_or_404(Women, slug=post_slug)
+
+    data={
+        'title': post.title,
+        'menu': menu,
+        'post': post,
+        'cat_selected': 1,
+    }
+    return render(request, 'women/post.html', context=data)
 
 def page_not_found(request, exception):
     return HttpResponseNotFound('<h1>Page not found</h1>')
