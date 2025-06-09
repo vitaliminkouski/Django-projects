@@ -29,3 +29,6 @@ urlpatterns = [
 ]
 
 handler404=page_not_found
+
+admin.site.site_header='Admin panel'
+admin.site.index_title='World famous women'
