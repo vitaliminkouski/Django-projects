@@ -3,7 +3,7 @@ from django.urls import reverse
 
 class PublishedManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(is_published=Women.Status.PUBLISHED)
+         return super().get_queryset().filter(is_published=Women.Status.PUBLISHED)
 
 
 class Women(models.Model):
@@ -16,13 +16,14 @@ class Women(models.Model):
     content = models.TextField(blank=True)
     time_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
-    is_published = models.BooleanField(default=True)
+    is_published = models.BooleanField(choices=tuple(map(lambda x: (bool(x[0]), x[1]), Status.choices)),
+                                       default=Status.DRAFT, verbose_name="Статус")
     cat=models.ForeignKey('Category', on_delete=models.PROTECT, related_name='posts')
     tags=models.ManyToManyField('TagPost', blank='True', related_name='tags')
     husband=models.OneToOneField('Husband', on_delete=models.SET_NULL, null=True, blank=True, related_name='women')
 
-    published=PublishedManager()
     objects=models.Manager()
+    published=PublishedManager()
 
     def __str__(self):
         return self.title
@@ -48,6 +49,10 @@ class Category(models.Model):
 
     def get_absolute_url(self):
         return reverse('category', kwargs={'cat_slug': self.slug})
+
+    class Meta:
+        verbose_name='Category'
+        verbose_name_plural='Categories '
 
 class TagPost(models.Model):
     tag=models.CharField(max_length=255, db_index=True)
