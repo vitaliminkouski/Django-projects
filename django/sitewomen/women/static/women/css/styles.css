@@ -43,7 +43,7 @@ p.link-read-post a {
 }
 
 div.article-panel {
-    background: #061727;
+    background: #161b22;
     padding: 5px 10px;
     box-sizing: border-box;
     overflow: hidden;
@@ -92,10 +92,10 @@ ul.mainmenu {
 	margin: 0;
 	padding: 0;
 	height: 60px;
-	color: #6a5acd;
+	color: #a371f7;
 	font-size: 20px;
 	overflow: hidden;
-	background: #061727;
+	background: #0d1117;
 }
 ul.mainmenu li {
 	float: left;
@@ -165,7 +165,7 @@ div.button {
 
 .left-chapters {
 	margin: 0;
-	background: #111;
+	background: #161b22;
 	border-right: 1px solid #333;
 }
 .left-chapters ul {
