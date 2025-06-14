@@ -14,7 +14,7 @@ class Women(models.Model):
         PUBLISHED=1, 'published'
 
     title = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255, blank=True, db_index=True, default='')
+    slug = models.SlugField(max_length=255, blank=True, db_index=True, default='', unique=True)
     content = models.TextField(blank=True)
     time_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)

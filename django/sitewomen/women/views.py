@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.template.defaultfilters import join
 
 from .models import Women, Category, TagPost
+from .forms import AddPostForm
 
 menu=[
     {'title': 'Contacts', 'url_name': 'contacts'},
@@ -33,7 +34,24 @@ def contacts(request):
     return HttpResponse('<h1>Contact info</h1>')
 
 def add_page(request):
-    return HttpResponse('<h1>Add page</h1>')
+    if(request.method=='POST'):
+        form=AddPostForm(request.POST)
+        if form.is_valid():
+            #print(form.cleaned_data)
+            try:
+                Women.objects.create(**form.cleaned_data)
+                return redirect('home')
+            except:
+                form.add_error(None, 'Error adding posts')
+    else:
+        form=AddPostForm()
+
+    data={
+        'menu': menu,
+        'title': 'Adding page',
+        'form': form,
+    }
+    return render(request, 'women/addpage.html', data)
 
 def login(request):
     return render(request, 'women/login.html')
