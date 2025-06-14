@@ -19,7 +19,7 @@ class Women(models.Model):
     time_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(choices=tuple(map(lambda x: (bool(x[0]), x[1]), Status.choices)),
-                                       default=Status.DRAFT, verbose_name="Статус")
+                                       default=Status.DRAFT, verbose_name="Status")
     cat=models.ForeignKey('Category', on_delete=models.PROTECT, related_name='posts')
     tags=models.ManyToManyField('TagPost', blank='True', related_name='tags')
     husband=models.OneToOneField('Husband', on_delete=models.SET_NULL, null=True, blank=True, related_name='women')

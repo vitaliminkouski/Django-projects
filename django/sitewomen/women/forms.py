@@ -1,15 +1,30 @@
 from django import forms
-from .models import Category, Husband
+from django.core.exceptions import ValidationError
 
-class AddPostForm(forms.Form):
-    title=forms.CharField(max_length=255, min_length=5,
-                          widget=forms.TextInput(attrs={'class': 'form-input'}),
-                          error_messages={
-                              'min_length': 'Title is too short',
-                              'required': 'Title is required',
-                          })
-    slug=forms.SlugField(max_length=255, label='URL: ')
-    content=forms.CharField(widget=forms.Textarea(), required=False)
-    is_published=forms.BooleanField(required=False, initial=True)
-    cat=forms.ModelChoiceField(queryset=Category.objects.all(), empty_label='not selected', label='Category')
-    husband=forms.ModelChoiceField(queryset=Husband.objects.all(), empty_label='not married', required=False)
+from .models import Category, Husband, Women
+
+class AddPostForm(forms.ModelForm):
+    cat = forms.ModelChoiceField(queryset=Category.objects.all(), empty_label='not selected', label='Category')
+    husband = forms.ModelChoiceField(queryset=Husband.objects.all(), empty_label='not married', required=False)
+
+    class Meta:
+        model=Women
+        fields=['title', 'slug', 'content', 'is_published', 'cat', 'husband', 'tags']
+
+        widgets={
+            'title': forms.TextInput(attrs={'class': 'form-input'}),
+            'content': forms.Textarea(),
+        }
+
+        labels={'slug': 'URL'}
+
+    def clean_title(self):
+        title=self.cleaned_data['title']
+        if len(title)>50:
+            raise ValidationError('Length greater than 50 symbols')
+
+        return title
+
+
+
+
