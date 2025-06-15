@@ -4,8 +4,8 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.template.defaultfilters import join
 
-from .models import Women, Category, TagPost
-from .forms import AddPostForm
+from .models import Women, Category, TagPost, UploadFiles
+from .forms import AddPostForm, UploadFileForm
 
 menu=[
     {'title': 'Contacts', 'url_name': 'contacts'},
@@ -24,9 +24,20 @@ def index(request):
           }
     return render(request, 'women/index.html', data)
 
+# def handle_uploaded_file(f):
+#     with open(f"uploads/{f.name}", 'wb+') as destination:
+#         for chunk in f.chunks():
+#             destination.write(chunk)
 
 def about(request):
-    data = {'title': 'About web-site', 'menu': menu}
+    if request.method=='POST':
+        form=UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            fp=UploadFiles(file=form.cleaned_data['file'])
+            fp.save()
+    else:
+        form=UploadFileForm()
+    data = {'title': 'About web-site', 'menu': menu, 'form': form}
     return render(request, 'women/about.html', data)
 
 
@@ -35,7 +46,7 @@ def contacts(request):
 
 def add_page(request):
     if(request.method=='POST'):
-        form=AddPostForm(request.POST)
+        form=AddPostForm(request.POST, request.FILES)
         if form.is_valid():
             #print(form.cleaned_data)
             # try:

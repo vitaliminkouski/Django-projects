@@ -20,6 +20,8 @@ class Women(models.Model):
     time_update = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(choices=tuple(map(lambda x: (bool(x[0]), x[1]), Status.choices)),
                                        default=Status.DRAFT, verbose_name="Status")
+
+    photo=models.ImageField(upload_to='photos/%Y/%m/%d', blank=True, default=None, null=True)
     cat=models.ForeignKey('Category', on_delete=models.PROTECT, related_name='posts')
     tags=models.ManyToManyField('TagPost', blank='True', related_name='tags')
     husband=models.OneToOneField('Husband', on_delete=models.SET_NULL, null=True, blank=True, related_name='women')
@@ -76,3 +78,6 @@ class Husband(models.Model):
 
     def __str__(self):
         return self.name
+
+class UploadFiles(models.Model):
+    file=models.FileField(upload_to='uploads_model')
