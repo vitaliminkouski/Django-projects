@@ -1,7 +1,6 @@
 menu=[
     {'title': 'Contacts', 'url_name': 'contacts'},
     {'title': 'Add Page', 'url_name': 'add_page'},
-    {'title': 'Log in', 'url_name': 'login'},
     {'title': 'About', 'url_name': 'about'},
 ]
 
@@ -10,7 +9,7 @@ class DataMixin():
     extra_context={}
     cat_selected=None
     action_to_do=None
-    paginate_by = 1
+    paginate_by = 3
 
     def __init__(self):
         if self.page_title:
