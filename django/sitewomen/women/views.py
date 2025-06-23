@@ -21,6 +21,7 @@ class WomenHome(DataMixin, ListView):
     context_object_name = 'posts'
     title_page = ('Main page')
     cat_selected = 0
+    extra_context = {'title': 'Famous women'}
 
     def get_queryset(self):
         return Women.published.all().select_related('cat')

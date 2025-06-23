@@ -1,10 +1,10 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 
 class LoginUserForm(AuthenticationForm):
-    username = forms.CharField(label='Login',
+    username = forms.CharField(label='Login/email',
                                widget=forms.TextInput(attrs={'class': 'form-input'}))
     password = forms.CharField(label='Password',
                                widget=forms.TextInput(attrs={'class': 'form-input'}))
@@ -13,21 +13,22 @@ class LoginUserForm(AuthenticationForm):
         model = get_user_model()
 
 
-class RegisterUserForm(forms.ModelForm):
-    username = forms.CharField(label='Login', widget=forms.TextInput())
-    password = forms.CharField(label='Password', widget=forms.TextInput())
-    password2 = forms.CharField(label='Password', widget=forms.TextInput())
+class RegisterUserForm(UserCreationForm):
+    username = forms.CharField(label='Login', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    password1 = forms.CharField(label='Password', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    password2 = forms.CharField(label='Repeat password', widget=forms.TextInput(attrs={'class': 'form-input'}))
 
     class Meta:
         model=get_user_model()
-        fields=['username', 'email', 'first_name', 'last_name', 'password', 'password2']
+        fields=['username', 'email', 'first_name', 'last_name', 'password1', 'password2']
 
-    def clean_passowrd2(self):
-        cd =self.cleaned_data
-        if cd['password']!=cd['password2']:
-            raise forms.ValidationError("Passwords don't matched!")
-        else:
-            return cd['password']
+        widgets={
+            'first_name': forms.TextInput(attrs={'class': 'form-input'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-input'}),
+            'email': forms.TextInput(attrs={'class': 'form-input'}),
+        }
+
+
 
     def clean_email(self):
         email=self.cleaned_data['email']
@@ -35,3 +36,18 @@ class RegisterUserForm(forms.ModelForm):
             raise forms.ValidationError("This email already exists")
         else:
             return email
+
+class ProfileUserForm(forms.ModelForm):
+    username = forms.CharField(disabled=True, label='Login/email',
+                               widget=forms.TextInput(attrs={'class': 'form-input'}))
+    email = forms.CharField(disabled=True, label='Password',
+                               widget=forms.TextInput(attrs={'class': 'form-input'}))
+
+    class Meta:
+        model=get_user_model()
+        fields=['username', 'email', 'first_name', 'last_name']
+
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-input'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-input'}),
+        }
