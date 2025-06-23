@@ -5,13 +5,25 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
-from .forms import LoginUserForm
+from .forms import LoginUserForm, RegisterUserForm
+
 
 class LoginUser(LoginView):
     form_class = LoginUserForm
     template_name = 'users/login.html'
     extra_context = {'title': 'Authorization'}
 
+def register(request):
+    if request.method=="POST":
+        form=RegisterUserForm(request.POST)
+        if form.is_valid():
+            user=form.save(commit=False)
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+            return render(request, 'users/register_done.html')
+    else:
+        form=RegisterUserForm( )
+    return render(request, 'users/register.html', {'form': form})
 
 
 def logout_user(request):

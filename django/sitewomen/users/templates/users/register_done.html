@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Welcome!</h1>
+<p>Нou have successfully registered. Now you need to log in using
+<a href="{% url 'users:login' %}">the link</a>
+</p>
+{% endblock %}
