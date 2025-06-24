@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 
 from django.conf.global_settings import STATICFILES_DIRS, MEDIA_ROOT, MEDIA_URL, LOGIN_REDIRECT_URL, \
-    LOGOUT_REDIRECT_URL, AUTHENTICATION_BACKENDS, EMAIL_BACKEND
+    LOGOUT_REDIRECT_URL, AUTHENTICATION_BACKENDS
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -145,6 +145,16 @@ AUTHENTICATION_BACKENDS=[
     'users.authentication.EmailAuthBackend',
 ]
 
-EMAIL_BACKEND= 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND= 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST="smtp.yandex.ru"
+EMAIL_PORT=465
+EMAIL_HOST_USER="vitalyminkovsky@yandex.com"
+EMAIL_USE_SSL=True
+EMAIL_HOST_PASSWORD=''
+
+DEFAULT_FROM_EMAIL=EMAIL_HOST_USER
+SERVER_EMAIL=EMAIL_HOST_USER
+EMAIL_ADMIN=EMAIL_HOST_USER
 
 from sitewomen.private_settings import *
