@@ -12,5 +12,7 @@
   {% endfor %}
 
   <p><button type="submit">Save</button> </p>
+  <hr>
+  <p><a href="{% url 'users:password_change' %}">Change password</a></p>
 </form>
 {% endblock %}
