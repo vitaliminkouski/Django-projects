@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 from django.conf.global_settings import STATICFILES_DIRS, MEDIA_ROOT, MEDIA_URL, LOGIN_REDIRECT_URL, \
     LOGOUT_REDIRECT_URL, AUTHENTICATION_BACKENDS, AUTH_USER_MODEL
@@ -122,6 +123,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
@@ -137,28 +142,27 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
-LOGIN_URL='users:login'
+LOGIN_URL = 'users:login'
 
-
-AUTHENTICATION_BACKENDS=[
+AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'users.authentication.EmailAuthBackend',
 ]
 
-EMAIL_BACKEND= 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_HOST="smtp.yandex.ru"
-EMAIL_PORT=465
-EMAIL_HOST_USER="vitalyminkovsky@yandex.com"
-EMAIL_USE_SSL=True
-EMAIL_HOST_PASSWORD=''
+EMAIL_HOST = "smtp.yandex.ru"
+EMAIL_PORT = 465
+EMAIL_HOST_USER = "vitalyminkovsky@yandex.com"
+EMAIL_USE_SSL = True
+EMAIL_HOST_PASSWORD = ''
 
-DEFAULT_FROM_EMAIL=EMAIL_HOST_USER
-SERVER_EMAIL=EMAIL_HOST_USER
-EMAIL_ADMIN=EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
+EMAIL_ADMIN = EMAIL_HOST_USER
 
-AUTH_USER_MODEL='users.User'
+AUTH_USER_MODEL = 'users.User'
 
-DEFAULT_USER_IMAGE=MEDIA_URL+'users/default.png'
+DEFAULT_USER_IMAGE = MEDIA_URL + 'users/default.png'
 
 from sitewomen.private_settings import *
