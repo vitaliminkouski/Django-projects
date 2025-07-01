@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 class Women(models.Model):
@@ -9,6 +10,7 @@ class Women(models.Model):
     is_published = models.BooleanField(default=True)
 
     cat=models.ForeignKey('Category', on_delete=models.PROTECT, null=True)
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
 
 
     def __str__(self):
