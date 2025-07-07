@@ -174,3 +174,4 @@ cython_debug/
 .pypirc
 
 private_settings.py
+.idea/
